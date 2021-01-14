@@ -26,7 +26,7 @@ resource "aws_elastic_beanstalk_environment" "jja_server_dev" {
 }
 
 resource "aws_elastic_beanstalk_application" "jja_web" {
-  name        = "jja_webr"
+  name        = "jja_web"
   description = "jjada main web server(next)"
 }
 
