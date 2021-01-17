@@ -32,4 +32,7 @@ override.tf.json
 # example: *tfplan*
 *.tfplan
 
+# Webstorm
+.idea/
+
 # End of https://www.gitignore.io/api/terraform
