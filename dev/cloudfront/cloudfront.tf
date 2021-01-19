@@ -1,13 +1,13 @@
 # local variables
 locals {
-  s3_origin_id = "jjada_resource_dev"
+  s3_origin_id = "jjada_resource"
 }
 
 # cloudfront distribution
-resource "aws_cloudfront_distribution" "jjada_resource_dev" {
+resource "aws_cloudfront_distribution" "jjada_resource" {
   # s3 origin
   origin {
-    domain_name = aws_s3_bucket.jjada_resource_dev.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.jjada_resource.bucket_regional_domain_name
     origin_id = local.s3_origin_id
     s3_origin_config {
       origin_access_identity = "origin-access-identity/cloudfront/E1CEN813DRRYNW"
@@ -54,10 +54,4 @@ resource "aws_cloudfront_distribution" "jjada_resource_dev" {
     default_ttl = 3600
     max_ttl = 86400
   }
-
-  # tags
-  tags = {
-    Environment = "development"
-  }
-
 }

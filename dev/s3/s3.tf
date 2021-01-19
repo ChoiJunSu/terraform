@@ -1,11 +1,11 @@
 # bucket
-resource "aws_s3_bucket" "jjada_resource_dev" {
+resource "aws_s3_bucket" "jjada_resource" {
   bucket = "jjada-resouce-dev"
 }
 
 # bucket_public_access_block
-resource "aws_s3_bucket_public_access_block" "jjada_resource_dev_pab" {\
-    bucket = aws_s3_bucket.jjada_resource_dev.id
+resource "aws_s3_bucket_public_access_block" "jjada_resource_pab" {\
+    bucket = aws_s3_bucket.jjada_resource.id
     block_public_acls = true
     block_public_policy = false
     ignore_public_acls = true
@@ -13,12 +13,12 @@ resource "aws_s3_bucket_public_access_block" "jjada_resource_dev_pab" {\
 }
 
 # bucket policy
-resource "aws_s3_bucket_policy" "jjada_resource_dev_policy" {
-  bucket = aws_s3_bucket.jjada_resource_dev.id
+resource "aws_s3_bucket_policy" "jjada_resource_policy" {
+  bucket = aws_s3_bucket.jjada_resource.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
-    "Id": "jjada_resource_dev_policy",
+    "Id": "jjada_resource_policy",
     "Statement": [
         {
             "Sid": "0",
