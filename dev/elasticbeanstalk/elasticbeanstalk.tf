@@ -8,9 +8,9 @@ resource "aws_elastic_beanstalk_application" "jja_server" {
 }
 
 resource "aws_elastic_beanstalk_environment" "jja_server_dev" {
-  name                = "jja_server_dev"
+  name                = "jja-server-dev"
   application         = aws_elastic_beanstalk_application.jja_server.name
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.24.1 running Multi-container Docker 19.03.13-ce (Generic)"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.25.0 running Multi-container Docker 19.03.13-ce (Generic)"
   tier                = "WebServer"
 
   setting {
@@ -31,9 +31,9 @@ resource "aws_elastic_beanstalk_application" "jja_web" {
 }
 
 resource "aws_elastic_beanstalk_environment" "jja_web_dev" {
-  name                = "jja_web_dev"
+  name                = "jja-web-dev"
   application         = aws_elastic_beanstalk_application.jja_web.name
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.24.1 running Multi-container Docker 19.03.13-ce (Generic)"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.25.0 running Multi-container Docker 19.03.13-ce (Generic)"
   tier                = "WebServer"
 
   setting {
