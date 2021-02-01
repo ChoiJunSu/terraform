@@ -1,3 +1,7 @@
+module "cloudfront" {
+  source = "./cloudfront"
+}
+
 module "elasticbeanstalk" {
   source                  = "./elasticbeanstalk"
   vpc_dev_id              = module.vpc.vpc_dev_id
@@ -14,9 +18,3 @@ module "rds" {
 module "vpc" {
   source = "./vpc"
 }
-
-# terraform {
-#   backend "s3" {
-#     bucket = ""
-#   }
-# }
