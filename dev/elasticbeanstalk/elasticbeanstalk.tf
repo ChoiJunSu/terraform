@@ -23,6 +23,11 @@ resource "aws_elastic_beanstalk_environment" "jja_server_dev" {
     name      = "Subnets"
     value     = join(",", var.vpc_dev_public_subnets)
   }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    value     = "aws-elasticbeanstalk-ec2-role"
+  }
 }
 
 resource "aws_elastic_beanstalk_application" "jja_web" {
@@ -45,5 +50,10 @@ resource "aws_elastic_beanstalk_environment" "jja_web_dev" {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = join(",", var.vpc_dev_private_subnets)
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    value     = "aws-elasticbeanstalk-ec2-role"
   }
 }
