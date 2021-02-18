@@ -44,16 +44,20 @@ resource "aws_security_group" "vpc_dev_jenkins_sg" {
 }
 
 resource "aws_instance" "vpc_dev_jenkins" {
-  ami               = data.aws_ami.ubuntu.id
+  ami               = data.aws_ami.amazon-linux-2.id
   availability_zone = aws_subnet.vpc_dev_public_subnet1.availability_zone
   instance_type     = "t2.micro"
   key_name          = "jjada-keypair"
+  iam_instance_profile = "EC2SSM"
   vpc_security_group_ids = [
     aws_default_security_group.vpc_dev_sg.id,
     aws_security_group.vpc_dev_jenkins_sg.id
   ]
   subnet_id                   = aws_subnet.vpc_dev_public_subnet1.id
   associate_public_ip_address = true
+  tags = {
+    Name = "jenkins-dev"
+  }
 }
 
 resource "aws_eip" "vpc_dev_eip_jenkins" {
