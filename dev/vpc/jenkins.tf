@@ -67,7 +67,7 @@ resource "aws_eip" "vpc_dev_eip_jenkins" {
 }
 
 resource "aws_route53_record" "record_dev_jenkins" {
-  zone_id = aws_route53_zone.zone_dev_jenkins.zone_id
+  zone_id = data.aws_route53_zone.jjada_io.zone_id
   name    = "jenkins.jjada.io"
   type    = "A"
   ttl     = "300"
