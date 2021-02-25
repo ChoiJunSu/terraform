@@ -1,5 +1,7 @@
 module "cloudfront" {
-  source = "./cloudfront"
+  source          = "./cloudfront"
+  zone_jjada_io   = module.route53.zone_jjada_io
+  acm_jjada_io    = module.route53.acm_jjada_io
 }
 
 module "elasticbeanstalk" {
@@ -15,6 +17,12 @@ module "rds" {
   vpc_dev_sg_id           = module.vpc.vpc_dev_sg_id
 }
 
+module "route53" {
+  source = "./route53"
+}
+
 module "vpc" {
-  source = "./vpc"
+  source        = "./vpc"
+  zone_jjada_io = module.route53.zone_jjada_io
+  acm_jjada_io  = module.route53.acm_jjada_io
 }

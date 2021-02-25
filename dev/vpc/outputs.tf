@@ -13,3 +13,7 @@ output "vpc_dev_private_subnets" {
 output "vpc_dev_sg_id" {
   value = aws_default_security_group.vpc_dev_sg.id
 }
+
+output "eip_jenkins_dev" {
+  value = aws_eip.vpc_dev_eip_jenkins.public_ip
+}

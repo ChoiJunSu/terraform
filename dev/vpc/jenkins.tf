@@ -1,7 +1,3 @@
-resource "aws_route53_zone" "zone_dev_jenkins" {
-  name = "jenkins.jjada.io"
-}
-
 resource "aws_security_group" "vpc_dev_jenkins_sg" {
   name        = "jenkins"
   description = "sg for jenkins"
@@ -66,10 +62,54 @@ resource "aws_eip" "vpc_dev_eip_jenkins" {
   depends_on = [aws_internet_gateway.vpc_dev_ig]
 }
 
-resource "aws_route53_record" "record_dev_jenkins" {
-  zone_id = data.aws_route53_zone.jjada_io.zone_id
-  name    = "jenkins.jjada.io"
-  type    = "A"
-  ttl     = "300"
-  records = [aws_eip.vpc_dev_eip_jenkins.public_ip]
+resource "aws_elb" "jenkins_dev" {
+  name               = "jenkins-dev"
+
+  listener {
+    instance_port = 8080
+    instance_protocol = "http"
+    lb_port = 443
+    lb_protocol = "https"
+  }
+
+  instances = [aws_instance.vpc_dev_jenkins.id]
+}
+
+resource "aws_cloudfront_distribution" "jenkins_dev" {
+  origin {
+    domain_name = aws_elb.jenkins_dev.dns_name
+    origin_id   = aws_elb.jenkins_dev.id
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  aliases             = ["jenkins.jjada.io"]
+  price_class         = "PriceClass_200"
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    acm_certificate_arn = var.acm_jjada_io.arn
+    ssl_support_method  = "sni-only"
+  }
+
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    target_origin_id = aws_elb.jenkins_dev.id
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
 }

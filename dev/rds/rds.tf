@@ -1,6 +1,3 @@
-variable "vpc_dev_private_subnets" {}
-variable "vpc_dev_sg_id" {}
-
 resource "aws_db_subnet_group" "rds_dev_subnet_group" {
   name       = "rds_dev_subnet_group"
   subnet_ids = var.vpc_dev_private_subnets

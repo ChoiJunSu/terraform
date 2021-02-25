@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "jjada_resource" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = data.aws_acm_certificate.jjada_resource.arn
+    acm_certificate_arn = var.acm_jjada_io.arn
     ssl_support_method  = "sni-only"
   }
 

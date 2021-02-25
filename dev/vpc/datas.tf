@@ -33,8 +33,3 @@ data "aws_ami" "amazon-linux-2" {
 
   owners = ["amazon"]
 }
-
-data "aws_route53_zone" "jjada_io" {
-  name         = "jjada.io"
-  private_zone = false
-}

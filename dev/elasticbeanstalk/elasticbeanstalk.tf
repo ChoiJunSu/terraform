@@ -1,7 +1,3 @@
-variable "vpc_dev_id" {}
-variable "vpc_dev_public_subnets" {}
-variable "vpc_dev_private_subnets" {}
-
 resource "aws_elastic_beanstalk_application" "jja_server" {
   name        = "jja_server"
   description = "jjada main server(nest)"
