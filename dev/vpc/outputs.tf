@@ -17,3 +17,7 @@ output "vpc_dev_sg_id" {
 output "eip_jenkins_dev" {
   value = aws_eip.vpc_dev_eip_jenkins.public_ip
 }
+
+output "elb_jenkins_dev" {
+  value = aws_elb.jenkins_dev
+}
