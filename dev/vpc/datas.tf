@@ -18,18 +18,13 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-data "aws_ami" "amazon-linux-2" {
+data "aws_ami" "jenkins_dev" {
  most_recent = true
 
  filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
-
- filter {
    name   = "name"
-   values = ["amzn2-ami-hvm*"]
+   values = ["jenkins_dev"]
  }
 
-  owners = ["amazon"]
+  owners = ["self"]
 }

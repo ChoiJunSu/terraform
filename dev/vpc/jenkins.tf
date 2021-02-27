@@ -40,7 +40,7 @@ resource "aws_security_group" "vpc_dev_jenkins_sg" {
 }
 
 resource "aws_instance" "vpc_dev_jenkins" {
-  ami               = data.aws_ami.amazon-linux-2.id
+  ami               = data.aws_ami.jenkins_dev.id
   availability_zone = aws_subnet.vpc_dev_public_subnet1.availability_zone
   instance_type     = "t2.micro"
   key_name          = "jjada-keypair"
@@ -64,12 +64,14 @@ resource "aws_eip" "vpc_dev_eip_jenkins" {
 
 resource "aws_elb" "jenkins_dev" {
   name               = "jenkins-dev"
+  subnets = [aws_subnet.vpc_dev_public_subnet1.id]
 
   listener {
     instance_port = 8080
     instance_protocol = "http"
     lb_port = 443
     lb_protocol = "https"
+    ssl_certificate_id = var.acm_jjada_io.id
   }
 
   instances = [aws_instance.vpc_dev_jenkins.id]
@@ -79,6 +81,13 @@ resource "aws_cloudfront_distribution" "jenkins_dev" {
   origin {
     domain_name = aws_elb.jenkins_dev.dns_name
     origin_id   = aws_elb.jenkins_dev.id
+
+    custom_origin_config {
+      http_port              = "80"
+      https_port             = "443"
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
   }
 
   enabled             = true
@@ -98,8 +107,8 @@ resource "aws_cloudfront_distribution" "jenkins_dev" {
   }
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    allowed_methods  = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD"]
     target_origin_id = aws_elb.jenkins_dev.id
     forwarded_values {
       query_string = false
