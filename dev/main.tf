@@ -19,6 +19,7 @@ module "rds" {
 
 module "route53" {
   source = "./route53"
+  elb_jenkins_dev = module.vpc.elb_jenkins_dev
 }
 
 module "vpc" {
