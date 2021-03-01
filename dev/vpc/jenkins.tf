@@ -71,7 +71,7 @@ resource "aws_elb" "jenkins_dev" {
     instance_protocol = "http"
     lb_port = 443
     lb_protocol = "https"
-    ssl_certificate_id = var.acm_jjada_io.id
+    ssl_certificate_id = var.acm_jjada_io_seoul.id
   }
 
   instances = [aws_instance.vpc_dev_jenkins.id]

@@ -1,8 +1,7 @@
 module "cloudfront" {
   source          = "./cloudfront"
   zone_jjada_io   = module.route53.zone_jjada_io
-  acm_jjada_io    = module.route53.acm_jjada_io
-  elb_jenkins_dev = module.vpc.elb_jenkins_dev
+  acm_jjada_io_virginia    = module.route53.acm_jjada_io_virginia
 }
 
 module "elasticbeanstalk" {
@@ -25,5 +24,5 @@ module "route53" {
 module "vpc" {
   source        = "./vpc"
   zone_jjada_io = module.route53.zone_jjada_io
-  acm_jjada_io  = module.route53.acm_jjada_io
+  acm_jjada_io_seoul  = module.route53.acm_jjada_io_seoul
 }
