@@ -4,6 +4,10 @@ module "cloudfront" {
   acm_jjada_io_virginia    = module.route53.acm_jjada_io_virginia
 }
 
+module "ecr" {
+  source          = "./ecr"
+}
+
 module "elasticbeanstalk" {
   source                  = "./elasticbeanstalk"
   vpc_dev_id              = module.vpc.vpc_dev_id

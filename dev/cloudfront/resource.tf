@@ -82,7 +82,7 @@ resource "aws_s3_bucket_policy" "jjada_resource_policy" {
         Sid    = "0",
         Effect = "Allow",
         Principal = {
-          CanonicalUser = aws_cloudfront_origin_access_identity.jjada_resource_oai.s3_canonical_user_id
+          AWS = aws_cloudfront_origin_access_identity.jjada_resource_oai.iam_arn
         },
         Action   = "s3:GetObject",
         Resource = "${aws_s3_bucket.jjada_resource.arn}/*"
