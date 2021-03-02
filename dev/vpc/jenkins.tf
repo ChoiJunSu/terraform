@@ -44,7 +44,7 @@ resource "aws_instance" "vpc_dev_jenkins" {
   availability_zone = aws_subnet.vpc_dev_public_subnet1.availability_zone
   instance_type     = "t2.micro"
   key_name          = "jjada-keypair"
-  iam_instance_profile = "EC2SSM"
+  iam_instance_profile = "aws-elasticbeanstalk-ec2-role"
   vpc_security_group_ids = [
     aws_default_security_group.vpc_dev_sg.id,
     aws_security_group.vpc_dev_jenkins_sg.id
