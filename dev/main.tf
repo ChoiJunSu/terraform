@@ -1,7 +1,5 @@
-module "cloudfront" {
-  source          = "./cloudfront"
-  zone_jjada_io   = module.route53.zone_jjada_io
-  acm_jjada_io_virginia    = module.route53.acm_jjada_io_virginia
+module "s3" {
+  source          = "./s3"
 }
 
 module "ecr" {
@@ -18,16 +16,8 @@ module "elasticbeanstalk" {
 module "rds" {
   source                  = "./rds"
   vpc_dev_private_subnets = module.vpc.vpc_dev_private_subnets
-  vpc_dev_sg_id           = module.vpc.vpc_dev_sg_id
-}
-
-module "route53" {
-  source = "./route53"
-  elb_jenkins_dev = module.vpc.elb_jenkins_dev
 }
 
 module "vpc" {
   source        = "./vpc"
-  zone_jjada_io = module.route53.zone_jjada_io
-  acm_jjada_io_seoul  = module.route53.acm_jjada_io_seoul
 }
