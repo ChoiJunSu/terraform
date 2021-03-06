@@ -6,6 +6,12 @@ module "ecr" {
   source          = "./ecr"
 }
 
+module "elasticache" {
+  source          = "./elasticache"
+  vpc_dev_id      = module.vpc.vpc_dev_id
+  vpc_dev_private_subnets = module.vpc.vpc_dev_private_subnets
+}
+
 module "elasticbeanstalk" {
   source                  = "./elasticbeanstalk"
   vpc_dev_id              = module.vpc.vpc_dev_id
