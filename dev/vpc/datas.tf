@@ -23,8 +23,20 @@ data "aws_ami" "jenkins_dev" {
 
  filter {
    name   = "name"
-   values = ["jenkins_dev"]
+   values = ["jenkins_dev_2"]
  }
 
   owners = ["self"]
+}
+
+data "aws_security_group" "default" {
+  id = "sg-02ba1894dc9436e2c"
+}
+
+data "aws_security_group" "jenkins" {
+  id = "sg-09e52c72222b286bf"
+}
+
+data "aws_security_group" "bastion" {
+  id = "sg-0035f5f755871c32e"
 }

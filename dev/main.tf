@@ -22,6 +22,7 @@ module "elasticbeanstalk" {
 module "rds" {
   source                  = "./rds"
   vpc_dev_private_subnets = module.vpc.vpc_dev_private_subnets
+  security_group_default = module.vpc.security_group_default
 }
 
 module "vpc" {

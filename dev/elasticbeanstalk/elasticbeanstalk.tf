@@ -45,12 +45,22 @@ resource "aws_elastic_beanstalk_environment" "jja_web_dev" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = join(",", var.vpc_dev_public_subnets)
+    value     = join(",", var.vpc_dev_private_subnets)
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = "aws-elasticbeanstalk-ec2-role"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
+  }
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "ELBSubnets"
+    value     = join(",", var.vpc_dev_public_subnets)
   }
 }
 

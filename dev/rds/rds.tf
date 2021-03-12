@@ -15,5 +15,5 @@ resource "aws_db_instance" "rds_dev" {
   parameter_group_name = aws_db_parameter_group.parameter_group.name
 
   db_subnet_group_name   = aws_db_subnet_group.rds_dev_subnet_group.id
-  vpc_security_group_ids = ["sg-02ba1894dc9436e2c"]
+  vpc_security_group_ids = [var.security_group_default.id]
 }

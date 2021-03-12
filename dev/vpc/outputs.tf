@@ -9,3 +9,7 @@ output "vpc_dev_public_subnets" {
 output "vpc_dev_private_subnets" {
   value = [aws_subnet.vpc_dev_private_subnet1.id, aws_subnet.vpc_dev_private_subnet2.id]
 }
+
+output "security_group_default" {
+  value = data.aws_security_group.default
+}
